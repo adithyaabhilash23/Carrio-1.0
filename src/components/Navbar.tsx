@@ -38,7 +38,7 @@ export const Navbar: React.FC = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="max-width-[1200px] mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
             <svg className="w-11 h-11 transition-transform duration-300 group-hover:scale-105" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,29 +1,80 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { AnimatedText } from './react-bits/AnimatedText';
 import { Magnet } from './react-bits/Magnet';
 import { Aurora } from './react-bits/Aurora';
 
-const Spline = lazy(() => import('@splinetool/react-spline'));
+const BrandIllustration = () => (
+  <svg className="w-full h-full max-h-[420px] drop-shadow-2xl select-none" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(14, 124, 106, 0.18)" />
+        <stop offset="100%" stopColor="rgba(14, 124, 106, 0)" />
+      </radialGradient>
+      <linearGradient id="palmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#0E7C6A" />
+        <stop offset="100%" stopColor="#0B5D50" />
+      </linearGradient>
+      <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#F5A623" />
+        <stop offset="100%" stopColor="#D98A18" />
+      </linearGradient>
+    </defs>
 
-const SplineLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center bg-teal-muted/20 animate-pulse rounded-2xl">
-    <div className="flex flex-col items-center gap-3">
-      <div className="w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin"></div>
-      <div className="text-teal font-medium text-sm">Caring 3D world loading...</div>
-    </div>
-  </div>
-);
+    {/* Background Glow */}
+    <circle cx="250" cy="200" r="180" fill="url(#bgGlow)" />
 
-const FallbackSVG = () => (
-  <svg className="w-full h-full max-h-[400px] drop-shadow-xl" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="250" cy="200" r="160" fill="#E0F5F0" />
-    <path d="M250 340C250 340 100 260 100 160C100 110 140 70 190 70C190 70 220 70 250 120C280 70 310 70 310 70C360 70 400 110 400 160C400 260 250 340 250 340Z" fill="#12A088" opacity="0.15" />
-    {/* Palms */}
-    <path d="M150 260C120 220 135 150 180 150" stroke="#0E7C6A" strokeWidth="4" strokeLinecap="round" />
-    <path d="M350 260C380 220 365 150 320 150" stroke="#0E7C6A" strokeWidth="4" strokeLinecap="round" />
-    {/* Heart */}
-    <path d="M250 140L253 147H260L255 152L257 159L250 155L243 159L245 152L240 147H247L250 140Z" fill="#F5A623" />
+    {/* Heart Floating above */}
+    <motion.path
+      d="M250 85 C250 85, 238 72, 225 72 C210 72, 200 84, 200 100 C200 120, 222 138, 250 152 C278 138, 300 120, 300 100 C300 84, 290 72, 275 72 C262 72, 250 85, 250 85 Z"
+      fill="url(#goldGrad)"
+      animate={{
+        y: [0, -10, 0],
+        scale: [1, 1.08, 1],
+      }}
+      transition={{
+        duration: 3,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      }}
+    />
+
+    {/* Elderly Couple */}
+    <g transform="translate(195, 120)">
+      {/* Father (Grey hair, walking cane) */}
+      <circle cx="40" cy="50" r="12" fill="#F1F5F9" stroke="#0B1F3A" strokeWidth="2" />
+      <path d="M38 38 Q40 44 48 44" stroke="#E2E8F0" strokeWidth="3" strokeLinecap="round" /> {/* Hair */}
+      <path d="M25 65 C25 65, 30 95, 45 95 C60 95, 60 65, 60 65" fill="#0B1F3A" /> {/* Torso */}
+      <path d="M32 95 L32 125" stroke="#0B1F3A" strokeWidth="3" strokeLinecap="round" /> {/* Legs */}
+      <path d="M48 95 L48 125" stroke="#0B1F3A" strokeWidth="3" strokeLinecap="round" />
+      <path d="M22 105 L26 128 L20 128" stroke="#F5A623" strokeWidth="3.5" strokeLinecap="round" fill="none" /> {/* Cane */}
+
+      {/* Mother (Saree, Hair Bun) */}
+      <circle cx="85" cy="55" r="11" fill="#F1F5F9" stroke="#0B1F3A" strokeWidth="2" />
+      <circle cx="96" cy="55" r="4" fill="#94A3B8" /> {/* Hair Bun */}
+      <path d="M70 68 C70 68, 75 98, 90 98 C105 98, 102 68, 102 68" fill="#0E7C6A" /> {/* Torso/Saree */}
+      <path d="M78 98 L78 125" stroke="#0E7C6A" strokeWidth="3" /> {/* Legs */}
+      <path d="M92 98 L92 125" stroke="#0E7C6A" strokeWidth="3" />
+      <path d="M72 75 Q62 72 58 75" stroke="#F1F5F9" strokeWidth="3" strokeLinecap="round" fill="none" /> {/* Arm */}
+    </g>
+
+    {/* Cupped Palms cradling the couple */}
+    <g>
+      {/* Left Palm */}
+      <path
+        d="M130 300 C150 330, 200 340, 235 320 C235 320, 200 280, 175 250 C155 225, 140 240, 140 240 C140 240, 120 280, 130 300 Z"
+        fill="url(#palmGrad)"
+        opacity="0.95"
+      />
+      
+      {/* Right Palm */}
+      <path
+        d="M370 300 C350 330, 300 340, 265 320 C265 320, 300 280, 325 250 C345 225, 360 240, 360 240 C360 240, 380 280, 370 300 Z"
+        fill="url(#palmGrad)"
+        opacity="0.95"
+      />
+    </g>
   </svg>
 );
 
@@ -66,7 +117,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden bg-white">
+    <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-white">
       {/* Background Aurora overlay */}
       <Aurora className="opacity-70" />
 
@@ -74,7 +125,7 @@ export const Hero: React.FC = () => {
         
         {/* Left Side Content */}
         <motion.div 
-          className="lg:col-span-6 flex flex-col items-start"
+          className="lg:col-span-6 flex flex-col items-start text-left"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -142,21 +193,10 @@ export const Hero: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Right Side 3D Scene / Mockup */}
-        <div className="lg:col-span-6 relative w-full h-[400px] lg:h-[500px]">
-          {/* Spline 3D Embed */}
-          <Suspense fallback={<SplineLoader />}>
-            <Spline 
-              scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" 
-              className="w-full h-full object-cover rounded-2xl"
-              style={{ pointerEvents: 'auto' }}
-            />
-          </Suspense>
-
-          {/* Secondary fallback just in case the scene fails to mount */}
-          <div className="absolute inset-0 -z-10 flex items-center justify-center">
-            <FallbackSVG />
-          </div>
+        {/* Right Side Brand Illustration & Floating Cards */}
+        <div className="lg:col-span-6 relative w-full h-[400px] lg:h-[480px] flex items-center justify-center">
+          
+          <BrandIllustration />
 
           {/* Status Cards floating overlay */}
           <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-20 w-[240px] sm:w-[260px] pointer-events-none">
