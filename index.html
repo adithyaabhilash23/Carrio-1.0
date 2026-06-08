@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Carryo Care — Hospital Visits, Handled with Love</title>
+<meta name="description" content="Carryo Care provides safe hospital transportation and trained companion services for elderly patients in Kerala. Book a ride for your loved ones today.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--teal:#0E7C6A;--navy:#0B1F3A;--gold:#F5A623;--white:#FFFFFF;--light:#E8F6F3;--grey:#F5F7FA;--font-h:'DM Serif Display',serif;--font-b:'Plus Jakarta Sans',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);color:var(--navy);background:var(--white);overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--font-h);font-weight:400}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+img{max-width:100%}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);transition:all .3s ease;padding:20px 0}
+.navbar.scrolled{padding:12px 0;box-shadow:0 2px 20px rgba(0,0,0,0.08)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo svg{width:44px;height:44px}
+.nav-logo span{font-family:var(--font-h);font-size:1.4rem;color:var(--teal)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:.95rem;font-weight:500;color:var(--navy);position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--teal);transition:width .3s}
+.nav-links a:hover{color:var(--teal)}
+.nav-links a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:50px;font-family:var(--font-b);font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s ease;border:2px solid transparent}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(14,124,106,0.25)}
+.btn-teal{background:var(--teal);color:var(--white);border-color:var(--teal)}
+.btn-outline{background:transparent;color:var(--teal);border-color:var(--teal)}
+.btn-outline:hover{background:var(--teal);color:var(--white)}
+.btn-nav{padding:10px 24px;font-size:.9rem}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--navy);transition:all .3s}
+.mobile-menu{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--white);z-index:1001;padding:80px 32px 32px;display:flex;flex-direction:column;gap:24px;box-shadow:-4px 0 30px rgba(0,0,0,0.1);transition:right .4s ease}
+.mobile-menu.open{right:0}
+.mobile-menu a{font-size:1.1rem;font-weight:500;padding:12px 0;border-bottom:1px solid #eee}
+.mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;font-size:1.8rem;cursor:pointer}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000}
+.mobile-overlay.open{display:block}
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-10%;top:-20%;width:60%;height:140%;background:radial-gradient(ellipse,rgba(14,124,106,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#e8f6f3;padding:8px 18px;border-radius:50px;font-size:.85rem;font-weight:600;color:var(--teal);margin-bottom:20px}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-size:3.2rem;line-height:1.15;color:var(--navy);margin-bottom:20px}
+.hero p{font-size:1.1rem;color:#5a6a7a;line-height:1.7;margin-bottom:32px;max-width:500px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.hero-trust{display:flex;align-items:center;gap:12px}
+.avatar-stack{display:flex}
+.avatar-stack .avatar{width:36px;height:36px;border-radius:50%;border:2px solid var(--white);margin-left:-10px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--white)}
+.avatar-stack .avatar:first-child{margin-left:0}
+.hero-trust span{font-size:.9rem;color:#5a6a7a;font-weight:500}
+.hero-cards{position:relative;display:flex;flex-direction:column;gap:16px;padding:40px}
+.status-card{background:var(--white);border-radius:16px;padding:20px 24px;box-shadow:0 8px 30px rgba(14,124,106,0.12);display:flex;align-items:center;gap:14px;opacity:0;transform:translateY(30px);animation:slideUp .6s ease forwards,float 4s ease-in-out infinite}
+.status-card:nth-child(1){animation-delay:0s,1.2s}
+.status-card:nth-child(2){animation-delay:.3s,1.5s}
+.status-card:nth-child(3){animation-delay:.6s,1.8s}
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.status-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.status-icon.green{background:#e8f6f3;color:var(--teal)}
+.status-icon.blue{background:#e8f0fe;color:#3b82f6}
+.status-icon.gold{background:#fef3e2;color:var(--gold)}
+.status-card h4{font-size:.95rem;margin-bottom:2px;font-family:var(--font-b);font-weight:600}
+.status-card p{font-size:.82rem;color:#7a8a9a}
+.hero-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(14,124,106,0.15),transparent);top:50%;left:50%;transform:translate(-50%,-50%);filter:blur(40px);pointer-events:none}
+.problem{background:var(--navy);padding:100px 0;color:var(--white)}
+.section-label{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:12px}
+.section-heading{font-size:2.6rem;margin-bottom:60px}
+.problem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.problem-card{border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:32px 24px;transition:all .3s ease;background:rgba(255,255,255,0.03)}
+.problem-card:hover{transform:translateY(-6px);background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2)}
+.problem-card .icon{font-size:2.2rem;margin-bottom:16px}
+.problem-card h3{font-size:1.2rem;margin-bottom:10px}
+.problem-card p{font-size:.9rem;color:rgba(255,255,255,0.65);line-height:1.6}
+.timeline-section{background:var(--grey);padding:100px 0}
+.timeline{position:relative;max-width:900px;margin:0 auto}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--teal),#3b82f6);transform:translateX(-50%);border-radius:3px}
+.timeline-item{display:flex;justify-content:flex-end;padding:0 0 60px;position:relative;width:50%}
+.timeline-item:nth-child(even){justify-content:flex-start;margin-left:50%}
+.timeline-node{position:absolute;width:48px;height:48px;border-radius:50%;background:var(--white);border:3px solid var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:1rem;font-weight:700;color:var(--teal);z-index:2;top:20px}
+.timeline-item:nth-child(odd) .timeline-node{right:-24px}
+.timeline-item:nth-child(even) .timeline-node{left:-24px}
+.timeline-card{background:var(--white);border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.06);max-width:340px;margin-right:40px;opacity:0;transform:translateX(-40px);transition:all .6s ease}
+.timeline-item:nth-child(even) .timeline-card{margin-right:0;margin-left:40px;transform:translateX(40px)}
+.timeline-card.visible{opacity:1;transform:translateX(0)}
+.timeline-card .step-icon{font-size:1.8rem;margin-bottom:12px}
+.timeline-card h3{font-size:1.15rem;margin-bottom:8px}
+.timeline-card p{font-size:.9rem;color:#5a6a7a;line-height:1.6}
+.services{padding:100px 0}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.service-card{background:var(--white);border:1px solid #e8ecf0;border-radius:16px;padding:36px 28px;position:relative;overflow:hidden;transition:all .3s ease}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(14,124,106,0.1)}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--teal),#3b82f6);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.service-card:hover::after{transform:scaleX(1)}
+.service-card .icon{font-size:2.5rem;margin-bottom:16px}
+.service-card h3{font-size:1.2rem;margin-bottom:10px}
+.service-card p{font-size:.9rem;color:#5a6a7a;line-height:1.6;margin-bottom:16px}
+.pill{display:inline-block;padding:4px 14px;border-radius:50px;font-size:.78rem;font-weight:600;background:#e8f6f3;color:var(--teal)}
+.trust{background:var(--light);padding:100px 0}
+.trust-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.trust-card{background:var(--white);border-radius:16px;padding:32px 20px;text-align:center;transition:all .3s ease}
+.trust-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(14,124,106,0.1)}
+.trust-card .icon{font-size:2.2rem;margin-bottom:14px}
+.trust-card h3{font-size:1.05rem;margin-bottom:8px}
+.trust-card p{font-size:.85rem;color:#5a6a7a;line-height:1.5}
+.testimonials{padding:100px 0}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.testi-card{background:var(--white);border:1px solid #e8ecf0;border-radius:16px;padding:32px 28px}
+.testi-card .quote{font-size:3rem;color:var(--teal);opacity:.3;line-height:1;margin-bottom:8px;font-family:Georgia,serif}
+.stars{color:var(--gold);font-size:.95rem;margin-bottom:14px;letter-spacing:2px}
+.testi-card blockquote{font-size:.95rem;color:#4a5a6a;line-height:1.7;font-style:italic;margin-bottom:20px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--white)}
+.testi-author h4{font-size:.95rem;font-family:var(--font-b);font-weight:600}
+.testi-author p{font-size:.82rem;color:#7a8a9a}
+.stats{background:linear-gradient(135deg,var(--navy) 0%,#132d52 100%);padding:80px 0;color:var(--white)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat-item h2{font-size:3rem;margin-bottom:6px}
+.stat-item h2 .counter{font-family:var(--font-h)}
+.stat-item p{font-size:.95rem;color:rgba(255,255,255,0.65)}
+.cta-section{padding:100px 0;position:relative;text-align:center;overflow:hidden}
+.cta-section::before{content:'';position:absolute;left:50%;top:50%;width:600px;height:600px;background:radial-gradient(circle,rgba(14,124,106,0.07),transparent 70%);transform:translate(-50%,-50%);pointer-events:none}
+.cta-section h2{font-size:2.6rem;margin-bottom:16px;position:relative}
+.cta-section>p{color:#5a6a7a;font-size:1.1rem;margin-bottom:36px;position:relative}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;position:relative}
+.trust-signals{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;position:relative}
+.trust-signal{display:flex;align-items:center;gap:6px;font-size:.9rem;color:#5a6a7a}
+.trust-signal .check{color:var(--teal);font-weight:700}
+.footer{background:var(--navy);color:rgba(255,255,255,0.75);padding:80px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px;margin-bottom:40px}
+.footer-brand p{font-size:.9rem;line-height:1.7;margin:16px 0 20px}
+.social-icons{display:flex;gap:12px}
+.social-icons a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .3s}
+.social-icons a:hover{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.footer h4{color:var(--white);font-family:var(--font-b);font-weight:600;font-size:1rem;margin-bottom:20px}
+.footer ul li{margin-bottom:10px}
+.footer ul a{font-size:.9rem;transition:color .3s}
+.footer ul a:hover{color:var(--teal)}
+.footer-contact li{display:flex;align-items:flex-start;gap:8px;margin-bottom:12px;font-size:.9rem}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding:20px 0;display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+.footer-bottom a{transition:color .3s}
+.footer-bottom a:hover{color:var(--teal)}
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){
+.nav-links,.btn-nav{display:none}
+.hamburger{display:flex}
+.hero-grid{grid-template-columns:1fr;text-align:center}
+.hero h1{font-size:2.4rem}
+.hero p{margin:0 auto 32px}
+.hero-btns{justify-content:center}
+.hero-trust{justify-content:center}
+.hero-cards{padding:20px 0}
+.problem-grid{grid-template-columns:repeat(2,1fr)}
+.section-heading{font-size:2rem}
+.timeline::before{left:20px}
+.timeline-item,.timeline-item:nth-child(even){width:100%;margin-left:0;justify-content:flex-start;padding-left:60px}
+.timeline-node,.timeline-item:nth-child(odd) .timeline-node,.timeline-item:nth-child(even) .timeline-node{left:0;right:auto}
+.timeline-card,.timeline-item:nth-child(even) .timeline-card{margin-left:0;margin-right:0;transform:translateX(40px)}
+.timeline-card.visible{transform:translateX(0)}
+.services-grid{grid-template-columns:repeat(2,1fr)}
+.trust-grid{grid-template-columns:repeat(3,1fr)}
+.testi-grid{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+.hero{padding:100px 0 60px}
+.hero h1{font-size:1.9rem}
+.problem-grid,.services-grid,.stats-grid{grid-template-columns:1fr}
+.trust-grid{grid-template-columns:repeat(2,1fr)}
+.footer-grid{grid-template-columns:1fr}
+.footer-bottom{flex-direction:column;gap:10px;text-align:center}
+.trust-signals{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar" id="navbar">
+<div class="container nav-inner">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 44C24 44 6 34 6 22C6 16 10 10 16 10C16 10 20 10 24 16C28 10 32 10 32 10C38 10 42 16 42 22C42 34 24 44 24 44Z" fill="#E8F6F3" stroke="#0E7C6A" stroke-width="2"/>
+      <circle cx="18" cy="26" r="4" fill="#0E7C6A" opacity="0.6"/>
+      <circle cx="30" cy="26" r="4" fill="#0E7C6A" opacity="0.6"/>
+      <path d="M14 32C14 32 18 38 24 38C30 38 34 32 34 32" stroke="#0E7C6A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M10 24C6 20 8 14 14 14" stroke="#0E7C6A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M38 24C42 20 40 14 34 14" stroke="#0E7C6A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M24 6L25 9L28 9L26 11L27 14L24 12L21 14L22 11L20 9L23 9Z" fill="#F5A623"/>
+    </svg>
+    <span>Carryo Care</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#services">Services</a>
+    <a href="#stories">Stories</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="btn btn-teal btn-nav">Book a Ride</a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-overlay"></div>
+<div class="mobile-menu">
+  <button class="mobile-close" aria-label="Close">&times;</button>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#services">Services</a>
+  <a href="#stories">Stories</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="btn btn-teal" style="text-align:center;margin-top:12px">Book a Ride</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+<div class="container hero-grid">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> Now serving Ernakulam &amp; Thrissur</div>
+    <h1>Hospital Visits Made Simple for Your Loved Ones</h1>
+    <p>From door-to-hospital and back — with a trained, caring companion by their side every step of the way. Because your parents deserve more than just a ride.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-teal">Book a Ride</a>
+      <a href="#contact" class="btn btn-outline">Become a Care Companion</a>
+    </div>
+    <div class="hero-trust">
+      <div class="avatar-stack">
+        <div class="avatar" style="background:#0E7C6A">RS</div>
+        <div class="avatar" style="background:#F5A623">MK</div>
+        <div class="avatar" style="background:#3b82f6">AL</div>
+        <div class="avatar" style="background:#e74c6f">PN</div>
+      </div>
+      <span>500+ families trust Carryo Care</span>
+    </div>
+  </div>
+  <div class="hero-cards">
+    <div class="hero-glow"></div>
+    <div class="status-card">
+      <div class="status-icon green">🚗</div>
+      <div><h4>Pickup Confirmed</h4><p>8:30 AM · Driver en route</p></div>
+    </div>
+    <div class="status-card">
+      <div class="status-icon blue">👤</div>
+      <div><h4>Companion Assigned</h4><p>Verified · 4.9★ rating</p></div>
+    </div>
+    <div class="status-card">
+      <div class="status-icon gold">✅</div>
+      <div><h4>Safe Return</h4><p>Family Notified · Trip Complete</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem reveal" id="problem">
+<div class="container">
+  <div class="section-label">The Problem</div>
+  <h2 class="section-heading">Why Families Worry</h2>
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <div class="icon">🌍</div>
+      <h3>Children Living Abroad</h3>
+      <p>You're thousands of miles away and Amma has an appointment tomorrow. Who will take her? Who will explain to the doctor?</p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="icon">🏠</div>
+      <h3>Parents Living Alone</h3>
+      <p>With children settled in other cities or countries, elderly parents face hospital visits alone — confused and anxious.</p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="icon">📱</div>
+      <h3>Ride Apps Are Confusing</h3>
+      <p>Booking an Uber or Ola is stressful enough for the young. For your 70-year-old parent, it's nearly impossible.</p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="icon">🏥</div>
+      <h3>Hospitals Are Overwhelming</h3>
+      <p>Long queues, endless counters, confusing corridors — navigating a hospital alone is exhausting and frightening for seniors.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="timeline-section reveal" id="how-it-works">
+<div class="container">
+  <div class="section-label" style="text-align:center">How It Works</div>
+  <h2 class="section-heading" style="text-align:center">Four Simple Steps to Peace of Mind</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-node">1</div>
+      <div class="timeline-card">
+        <div class="step-icon">📞</div>
+        <h3>Schedule a Visit</h3>
+        <p>Call us or book online. Share the appointment details and any special needs — wheelchair, oxygen, or just a comforting hand to hold.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node">2</div>
+      <div class="timeline-card">
+        <div class="step-icon">🚗</div>
+        <h3>We Pick Them Up</h3>
+        <p>A verified companion arrives at the door — on time, every time. They help your parent into a clean, comfortable vehicle.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node">3</div>
+      <div class="timeline-card">
+        <div class="step-icon">🏥</div>
+        <h3>Hospital Assistance</h3>
+        <p>Our companion stays with them throughout — registration, waiting, consultation, pharmacy, and tests. You get real-time updates.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node">4</div>
+      <div class="timeline-card">
+        <div class="step-icon">🏡</div>
+        <h3>Safe Return Home</h3>
+        <p>After the visit, we bring them safely home and send you a complete summary — medicines prescribed, next appointment, and doctor's notes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section class="services reveal" id="services">
+<div class="container">
+  <div class="section-label" style="text-align:center">Our Services</div>
+  <h2 class="section-heading" style="text-align:center">Everything Your Parents Need, Covered</h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="icon">🚐</div>
+      <h3>Pickup &amp; Drop</h3>
+      <p>Door-to-hospital and back in a clean, air-conditioned vehicle with a trained driver who understands elderly needs.</p>
+      <span class="pill">Most Popular</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">🤝</div>
+      <h3>Hospital Companion</h3>
+      <p>A friendly, trained companion who stays by your parent's side throughout — from registration to pharmacy.</p>
+      <span class="pill">Full Support</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">📋</div>
+      <h3>Appointment Assistance</h3>
+      <p>We handle appointment bookings, document management, and follow-ups so your parents never miss a visit.</p>
+      <span class="pill">Hassle-Free</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">🚗</div>
+      <h3>Own Vehicle Option</h3>
+      <p>Prefer your family car? We'll send a trained companion-driver who drives your own vehicle for the trip.</p>
+      <span class="pill">Flexible</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">♿</div>
+      <h3>Accessible Van Service</h3>
+      <p>Wheelchair-friendly vans with hydraulic lifts, ensuring safe and dignified transport for patients with mobility challenges.</p>
+      <span class="pill">Accessible</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TRUST -->
+<section class="trust reveal" id="trust">
+<div class="container">
+  <div class="section-label" style="text-align:center">Why Trust Us</div>
+  <h2 class="section-heading" style="text-align:center">Built on Care, Backed by Trust</h2>
+  <div class="trust-grid">
+    <div class="trust-card reveal">
+      <div class="icon">✅</div>
+      <h3>Verified Companions</h3>
+      <p>Every companion undergoes background checks, medical training, and empathy assessments.</p>
+    </div>
+    <div class="trust-card reveal">
+      <div class="icon">📍</div>
+      <h3>Real-Time Updates</h3>
+      <p>Track your parent's journey live. Get SMS and WhatsApp updates at every stage.</p>
+    </div>
+    <div class="trust-card reveal">
+      <div class="icon">🛡️</div>
+      <h3>Safe Transportation</h3>
+      <p>GPS-tracked vehicles, trained drivers, and comprehensive insurance for every ride.</p>
+    </div>
+    <div class="trust-card reveal">
+      <div class="icon">💛</div>
+      <h3>Compassionate Care</h3>
+      <p>Our companions are trained to be patient, gentle, and warm — like family.</p>
+    </div>
+    <div class="trust-card reveal">
+      <div class="icon">💰</div>
+      <h3>Affordable Pricing</h3>
+      <p>Transparent pricing with no hidden fees. Quality elder care shouldn't be a luxury.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials reveal" id="stories">
+<div class="container">
+  <div class="section-label" style="text-align:center">Stories</div>
+  <h2 class="section-heading" style="text-align:center">Families Who Found Peace of Mind</h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="quote">&ldquo;</div>
+      <div class="stars">★★★★★</div>
+      <blockquote>I work in Dubai and my Amma lives alone in Thrissur. Every time she had an appointment at Amala Hospital, I'd be anxious the whole day. Carryo Care changed everything. Their companion Priya treats Amma like her own grandmother. I get photos, updates, and the doctor's notes — all on WhatsApp.</blockquote>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#0E7C6A">RN</div>
+        <div><h4>Rajesh Nair</h4><p>Dubai, UAE · Son</p></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="quote">&ldquo;</div>
+      <div class="stars">★★★★★</div>
+      <blockquote>Achan had a stroke last year and uses a wheelchair now. Taking him to Medical Trust Hospital was a nightmare — the auto drivers wouldn't help, and I couldn't lift him alone. Carryo Care's wheelchair van and companion made it so smooth. Achan actually smiled on the way back.</blockquote>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#F5A623">SM</div>
+        <div><h4>Sunitha Menon</h4><p>Ernakulam · Daughter</p></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="quote">&ldquo;</div>
+      <div class="stars">★★★★★</div>
+      <blockquote>As a doctor myself, I know how overwhelming hospitals can be for patients. My parents are in Kottayam and I'm in Chennai. Carryo Care's companions are genuinely empathetic — they don't just transport, they care. The detailed post-visit summary is exactly what I need as a doctor-daughter.</blockquote>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#e74c6f">DK</div>
+        <div><h4>Dr. Deepa Krishnan</h4><p>Chennai · Daughter</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+<div class="container">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <h2><span class="counter" data-target="500" data-suffix="+">0</span></h2>
+      <p>Patients Assisted</p>
+    </div>
+    <div class="stat-item reveal">
+      <h2><span class="counter" data-target="1800" data-suffix="+">0</span></h2>
+      <p>Hospital Visits</p>
+    </div>
+    <div class="stat-item reveal">
+      <h2><span class="counter" data-target="12000" data-suffix="+">0</span></h2>
+      <p>Companion Hours</p>
+    </div>
+    <div class="stat-item reveal">
+      <h2><span class="counter" data-target="98" data-suffix="%">0</span></h2>
+      <p>Satisfaction Rate</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal" id="contact">
+<div class="container">
+  <h2>Your Parents Deserve More Than Just a Ride</h2>
+  <p>Book a Carryo Care visit today and give your family the gift of peace of mind.</p>
+  <div class="cta-btns">
+    <a href="tel:+919876543210" class="btn btn-teal">📞 Call to Book</a>
+    <a href="mailto:care@carryocare.in" class="btn btn-outline">✉️ Email Us</a>
+  </div>
+  <div class="trust-signals">
+    <div class="trust-signal"><span class="check">✓</span> No hidden charges</div>
+    <div class="trust-signal"><span class="check">✓</span> Same-day bookings</div>
+    <div class="trust-signal"><span class="check">✓</span> 24/7 family support</div>
+    <div class="trust-signal"><span class="check">✓</span> Verified companions</div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:8px">
+        <svg viewBox="0 0 48 48" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 44C24 44 6 34 6 22C6 16 10 10 16 10C16 10 20 10 24 16C28 10 32 10 32 10C38 10 42 16 42 22C42 34 24 44 24 44Z" fill="rgba(14,124,106,0.15)" stroke="#0E7C6A" stroke-width="2"/>
+          <path d="M24 6L25 9L28 9L26 11L27 14L24 12L21 14L22 11L20 9L23 9Z" fill="#F5A623"/>
+        </svg>
+        <span style="color:#fff">Carryo Care</span>
+      </a>
+      <p>Hospital visits, handled with love. Kerala's most trusted elderly care transportation service.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="WhatsApp">wa</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Pickup &amp; Drop</a></li>
+        <li><a href="#services">Hospital Companion</a></li>
+        <li><a href="#services">Appointment Assist</a></li>
+        <li><a href="#services">Own Vehicle Option</a></li>
+        <li><a href="#services">Accessible Van</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Service Areas</h4>
+      <ul>
+        <li><a href="#">Ernakulam</a></li>
+        <li><a href="#">Thrissur</a></li>
+        <li><a href="#">Kottayam</a></li>
+        <li><a href="#">Alappuzha</a></li>
+        <li><a href="#">Kollam</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact Us</h4>
+      <ul class="footer-contact">
+        <li>📞 +91 98765 43210</li>
+        <li>✉️ care@carryocare.in</li>
+        <li>📍 2nd Floor, Nucleus Mall, Maradu, Ernakulam, Kerala 682304</li>
+        <li>🕐 Mon–Sat: 6 AM – 10 PM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Carryo Care. All rights reserved.</p>
+    <div><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></div>
+  </div>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileOverlay = document.querySelector('.mobile-overlay');
+  const mobileClose = document.querySelector('.mobile-close');
+  function openMenu() { mobileMenu.classList.add('open'); mobileOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { mobileMenu.classList.remove('open'); mobileOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+  hamburger.addEventListener('click', openMenu);
+  mobileClose.addEventListener('click', closeMenu);
+  mobileOverlay.addEventListener('click', closeMenu);
+  document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const timelineCards = document.querySelectorAll('.timeline-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+  timelineCards.forEach(el => observer.observe(el));
+  const counters = document.querySelectorAll('.counter');
+  let counted = false;
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !counted) {
+        counted = true;
+        counters.forEach(c => {
+          const target = parseInt(c.dataset.target);
+          const suffix = c.dataset.suffix || '';
+          const duration = 2000;
+          const start = performance.now();
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            c.textContent = Math.floor(eased * target).toLocaleString() + suffix;
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+        });
+        statsObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsSection = document.querySelector('.stats');
+  if (statsSection) statsObserver.observe(statsSection);
+});
+</script>
+</body>
+</html>
